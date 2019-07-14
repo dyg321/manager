@@ -28,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/simple-line-icons/scss/simple-line-icons.scss",
+              "src/scss/coreui/coreui.scss",
+              "src/scss/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/js/coreui-sidebar.js"
+            ]
           },
           "configurations": {
             "production": {

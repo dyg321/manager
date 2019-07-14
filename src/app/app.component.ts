@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
+import { INavitem } from './models/navitem'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'test9';
+  
+  public navItems: INavitem[];
+
+  constructor(){
+    this.navItems = [{
+      href: '/',
+      icon: 'home',
+      title: 'Inicio'
+    }];
+  }
+  
 }
