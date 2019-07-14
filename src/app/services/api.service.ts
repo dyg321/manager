@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUser } from '../models/user';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class ApiService {
   constructor (
     private router: Router,
     private http: HttpClient,
-    private jwt: JwtHelperService
+    private jwt: JwtHelperService,
+    private toastr: ToastrService
   ){
 
     this.options = {
@@ -53,6 +55,7 @@ export class ApiService {
     return this.http.post(this.url, this.body, this.options)
       .pipe(
         tap(res => {
+          this.toastr.success('Hello world!', 'Toastr fun!');
           console.log(res);
         })
       );

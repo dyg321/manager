@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { IUser } from 'src/app/models/user';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   templateUrl: 'login.component.html'
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastr: ToastrService
   ) { 
 
     this.submitted = false;
@@ -54,6 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     this.data = {username: this.f.username.value, password: this.f.password.value};
     const task = "autenticar";
     this.apiService.api(this.data, task).subscribe(res => {
+      
       this.ready = false;
     })
   }

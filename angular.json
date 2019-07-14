@@ -30,6 +30,7 @@
             "styles": [
               "node_modules/simple-line-icons/scss/simple-line-icons.scss",
               "src/scss/coreui/coreui.scss",
+              "node_modules/ngx-toastr/toastr.css",
               "src/scss/styles.scss"
             ],
             "scripts": [
