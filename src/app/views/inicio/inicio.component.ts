@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { Router  } from '@angular/router';
+=======
+import { Router, ActivatedRoute  } from '@angular/router';
+>>>>>>> userdata
 import { INavitem } from '../../models/navitem';
 import { ApiService } from '../../services/api.service';
 
@@ -9,6 +13,7 @@ import { ApiService } from '../../services/api.service';
 export class InicioComponent  implements OnInit { 
 
   public navItems: INavitem[];
+<<<<<<< HEAD
 
   constructor (
     private router: Router,
@@ -25,11 +30,35 @@ export class InicioComponent  implements OnInit {
 
   ngOnInit(){
 
+=======
+  private activatedRoute: ActivatedRoute;
+
+  constructor (
+    private router: Router,
+    private apiService: ApiService,
+    activatedRoute: ActivatedRoute
+  ){
+
+    this.activatedRoute = activatedRoute;
+    
+    this.apiService.validSession();
+
+>>>>>>> userdata
     this.navItems = [{
       href: '/inicio',
       icon: 'home',
       title: 'Inicio'
     }];
+<<<<<<< HEAD
+=======
+
+
+  }
+
+  ngOnInit(){
+
+    
+>>>>>>> userdata
     
    
   }
