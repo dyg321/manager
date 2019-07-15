@@ -8,6 +8,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { ɵa } from '@ngx-progressbar/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { ApiService } from './services/api.service';
     NgProgressModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
+    ,RouterModule
   ],
   providers: [
     ApiService,

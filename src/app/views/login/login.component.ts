@@ -28,15 +28,17 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     this.submitted = false;
     this.ready = false;
     this.loader = 0;
+
+    if (this.apiService.validSession()){
+      this.router.navigate(['/inicio']); 
+      return;
+    }
   }
  
   ngAfterViewInit() {            
     this.vc.first.nativeElement.focus();
   }
   ngOnInit() {
-
-    if (this.apiService.validSession())
-      this.router.navigate(['/inicio']); 
 
     this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   get f() { return this.loginForm.controls; }
 
   onSubmit(){
+    
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -59,12 +62,14 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     this.apiService.api(this.data, task).subscribe(res => {
       
       localStorage.setItem("token", res.data);
-      this.ready = false;
       this.router.navigate(['/inicio']);
-      this.toastr.success('Hola!');
-
+      return;
+      
     }, error =>{
       this.ready = false;
     })
+
+    return;
   }
+
 }

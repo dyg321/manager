@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable  } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
@@ -7,7 +7,6 @@ import { IUser } from '../models/user';
 import { IResponse } from '../models/response';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +23,7 @@ export class ApiService {
     private jwt: JwtHelperService,
     private toastr: ToastrService
   ){
+
 
     this.options = {
       withCredentials: true,
