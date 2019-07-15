@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute  } from '@angular/router';
+import { Router  } from '@angular/router';
 import { INavitem } from '../../models/navitem';
 import { ApiService } from '../../services/api.service';
 
@@ -9,31 +9,27 @@ import { ApiService } from '../../services/api.service';
 export class InicioComponent  implements OnInit { 
 
   public navItems: INavitem[];
-  private activatedRoute: ActivatedRoute;
 
   constructor (
     private router: Router,
-    private apiService: ApiService,
-    activatedRoute: ActivatedRoute
+    private apiService: ApiService
   ){
 
-    this.activatedRoute = activatedRoute;
     
-    this.apiService.validSession();
+    if(this.apiService.validSession())
+      return;
+
+   
+
+  }
+
+  ngOnInit(){
 
     this.navItems = [{
       href: '/inicio',
       icon: 'home',
       title: 'Inicio'
     }];
-
-
-  }
-
-  ngOnInit(){
-
-    
-    
    
   }
 
@@ -42,7 +38,7 @@ export class InicioComponent  implements OnInit {
     this.router.navigate(['/login']);
     localStorage.clear();
     this.apiService.api({},"logout").subscribe();
-    
+    return;
   }
 
 }
