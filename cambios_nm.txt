@@ -1,0 +1,11 @@
+\node_modules\@ngx-progressbar\http\fesm2015\ngx-progressbar-http.js
+
+before
+46 > 	if (!this._progressRef.isStarted) {
+47 >    	this._progressRef.start();
+48 >	}
+
+after
+46 > 	//if (!this._progressRef.isStarted) {
+47 >    	this._progressRef.start();
+48 >	//}

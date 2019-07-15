@@ -59,11 +59,31 @@ export class ApiService {
         tap((res: IResponse) => {
           
           if (!res.success){
-            res.messages.warning.forEach(msg => {
-              this.toastr.error(msg);
-            });
-            throw 'No se ha podido realizar la consulta';
 
+            if (res.messages != null ) {
+
+              if (res.messages.warning != null){
+                res.messages.warning.forEach(msg => {
+                  this.toastr.error(msg);
+                });
+              }
+              if(res.messages.info != null){
+                res.messages.info.forEach(msg => {
+                  this.toastr.info(msg);
+                });
+              }
+              
+               
+            } else {
+              this.toastr.error(res.message);
+            }
+            
+            if (res.message == 'logout'){
+              localStorage.clear();
+              this.router.navigate(['/login']);
+            }
+
+            throw 'No se ha podido realizar la consulta'; 
           } 
 
         }),
@@ -81,8 +101,11 @@ export class ApiService {
                       case 401:      //login
                           this.toastr.error('No tiene permisos para acceder');
                           break;
-                      case 403:     //forbidden
+                      case 403:     
                           this.toastr.error('No se encuentra el servicio');
+                          break;
+                      case 500:     
+                          this.toastr.error('Error interno del servidor');
                           break;
                   }
               } 

@@ -6,4 +6,6 @@ export interface IResponse {
 }
 export interface IMessages {
     warning?: [];
+    info?: [];
+    success?: [];
 }

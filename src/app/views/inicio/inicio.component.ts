@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router  } from '@angular/router';
 import { INavitem } from '../../models/navitem';
+import { IUser } from '../../models/user';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { ApiService } from '../../services/api.service';
 export class InicioComponent  implements OnInit { 
 
   public navItems: INavitem[];
+  public loggedUser: IUser[];
 
   constructor (
     private router: Router,
@@ -27,13 +29,18 @@ export class InicioComponent  implements OnInit {
       icon: 'home',
       title: 'Inicio'
     }];
+
+    this.apiService.api({},"getUserData").subscribe(res =>{
+      
+      this.loggedUser = JSON.parse(res.data);;
+    });
    
   }
 
   logout(){
 
-    this.router.navigate(['/login']);
     localStorage.clear();
+    this.router.navigate(['/login']);
     this.apiService.api({},"logout").subscribe();
     return;
   }
