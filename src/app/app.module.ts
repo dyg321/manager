@@ -13,9 +13,9 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
-import { InicioComponent } from './views/inicio/inicio.component';
 
 import { ApiService } from './services/api.service';
+import { InicioComponent } from './views/inicio/inicio.component';
 
 
 @NgModule({

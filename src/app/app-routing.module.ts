@@ -5,8 +5,15 @@ import { InicioComponent } from './views/inicio/inicio.component';
 
 const routes: Routes = [
   {
-    path: 'inicio',
-    component: InicioComponent
+    path: '',
+    component: InicioComponent,
+    children: [
+      {
+        path: 'inicio',
+        loadChildren: () => import('./views/inicio/inicio.module').then(m => m.InicioModule)
+      }
+    ]
+    
   },{
     path: 'login',
     component: LoginComponent

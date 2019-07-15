@@ -391,7 +391,7 @@ html[dir="rtl"] {
       @if $breakpoint == "xs" {
         @include media-breakpoint-down(xs) {
           .main {
-            position: relative;
+           /*position: relative;*/
             &::before {
               position: absolute;
               top: 0;
