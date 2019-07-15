@@ -36,7 +36,8 @@
     <nav class="sidebar-nav">
       <ul class="nav">
         <li class="nav-item" *ngFor="let item of navItems">
-          <a class="nav-link" routerLink="{{item.href}}">
+          <a class="nav-link" routerLink="{{item.href}}" routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact: true}">
             <i class="nav-icon icon-{{item.icon}}"></i> {{item.title}}
           </a>
         </li>
