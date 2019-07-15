@@ -27,4 +27,12 @@ export class InicioComponent  implements OnInit {
 
   }
 
+  logout(){
+
+    this.router.navigate(['/login']);
+    localStorage.clear();
+    this.apiService.api({},"logout").subscribe();
+    
+  }
+
 }

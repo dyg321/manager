@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUser } from '../models/user';
-import { Observable } from 'rxjs';
+import { IResponse } from '../models/response';
+import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -54,9 +56,40 @@ export class ApiService {
     this.body = new HttpParams({ fromObject: data });
     return this.http.post(this.url, this.body, this.options)
       .pipe(
-        tap(res => {
-          this.toastr.success('Hello world!', 'Toastr fun!');
-          console.log(res);
+        tap((res: IResponse) => {
+          
+          if (!res.success){
+            res.messages.warning.forEach(msg => {
+              this.toastr.error(msg);
+            });
+            throw 'No se ha podido realizar la consulta';
+
+          } 
+
+        }),
+        catchError( (error: any) => {
+          
+          if (error instanceof HttpErrorResponse) {
+              if (error.error instanceof ErrorEvent) {
+                this.toastr.error('Ha ocurrido un error');
+              } else {
+
+                  switch (error.status) {
+                      case 0:
+                          this.toastr.error('El servidor no está disponible');
+                          break;
+                      case 401:      //login
+                          this.toastr.error('No tiene permisos para acceder');
+                          break;
+                      case 403:     //forbidden
+                          this.toastr.error('No se encuentra el servicio');
+                          break;
+                  }
+              } 
+          } else {
+              //this.toastr.error('Ha ocurrido un error inesperado');
+          }
+          return throwError(error);
         })
       );
   }

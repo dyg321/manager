@@ -58,6 +58,12 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     const task = "autenticar";
     this.apiService.api(this.data, task).subscribe(res => {
       
+      localStorage.setItem("token", res.data);
+      this.ready = false;
+      this.router.navigate(['/inicio']);
+      this.toastr.success('Hola!');
+
+    }, error =>{
       this.ready = false;
     })
   }
