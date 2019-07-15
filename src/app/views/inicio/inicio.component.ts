@@ -16,10 +16,16 @@ export class InicioComponent  implements OnInit {
   ){
 
     
+<<<<<<< HEAD
     if (!this.apiService.validSession())
       return; 
     
+=======
+    if(this.apiService.validSession())
+      return;
+>>>>>>> userdata
 
+   
 
   }
 
@@ -30,7 +36,10 @@ export class InicioComponent  implements OnInit {
       icon: 'home',
       title: 'Inicio'
     }];
+<<<<<<< HEAD
     
+=======
+>>>>>>> userdata
    
   }
 
