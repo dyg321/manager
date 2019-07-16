@@ -9,8 +9,8 @@ import { ApiService } from '../../services/api.service';
 })
 export class OrganismosComponent  implements OnInit { 
 
-  public navItems: INavitem[];
-  public loggedUser: IUser[];
+  public organismos: [];
+  public loaded: boolean;
 
   constructor (
     private router: Router,
@@ -24,25 +24,12 @@ export class OrganismosComponent  implements OnInit {
 
   ngOnInit(){
 
-    this.navItems = [{
-      href: '/inicio',
-      icon: 'home',
-      title: 'Inicio'
-    }];
-
-    this.apiService.api({},"getUserData").subscribe(res =>{
-      
-      this.loggedUser = JSON.parse(res.data);;
+    this.apiService.api({},"getOrganismos").subscribe(res =>{
+      this.loaded = true;
+      this.organismos = JSON.parse(res.data);
     });
    
   }
 
-  logout(){
-
-    localStorage.clear();
-    this.router.navigate(['/login']);
-    this.apiService.api({},"logout").subscribe();
-    return;
-  }
 
 }

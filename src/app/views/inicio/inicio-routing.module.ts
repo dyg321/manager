@@ -7,6 +7,11 @@ import { OrganismosComponent } from '../organismos/organismos.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'organismos',
+    pathMatch: 'full',
+  },
+  {
+    path: 'organismos',
     component: OrganismosComponent
   }
 ];

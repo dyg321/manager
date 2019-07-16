@@ -25,7 +25,7 @@ export class InicioComponent  implements OnInit {
   ngOnInit(){
 
     this.navItems = [{
-      href: '/inicio',
+      href: '/inicio/organismos',
       icon: 'home',
       title: 'Inicio'
     }];
