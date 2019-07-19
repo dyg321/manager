@@ -1,12 +1,13 @@
 import { Injectable  } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, takeUntil  } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUser } from '../models/user';
 import { IResponse } from '../models/response';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { INavitem } from '../models/navitem';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class ApiService {
   private body: HttpParams;
   private options: object;
   private url: string; 
+  protected ngUnsubscribe: Subject<void> = new Subject<void>();
+  protected navItems: INavitem[];
+  protected breadcrumb: INavitem[];
 
   constructor (
     private router: Router,
@@ -38,11 +42,26 @@ export class ApiService {
 
   }
 
+
+  setBreadcrumb(items: INavitem[]): void {
+    this.breadcrumb = items;
+  }
+  setNavItems(items: INavitem[]): void {
+    this.navItems = items;
+  }
+  
+
   validSession(): boolean {
 
     const token = localStorage.getItem("token");
+    
     if (!token || this.jwt.isTokenExpired(token) ){
-      this.router.navigate(['/login']); 
+      
+      if (token && this.jwt.isTokenExpired(token)) 
+        this.toastr.warning("Se ha cerrado la sesión");
+
+      localStorage.clear();
+      this.router.navigate(['/login']);
       return false;
     } 
 
@@ -56,15 +75,23 @@ export class ApiService {
     this.body = new HttpParams({ fromObject: data });
     return this.http.post(this.url, this.body, this.options)
       .pipe(
+
+        takeUntil(this.ngUnsubscribe),
+
         tap((res: IResponse) => {
           
           if (!res.success){
 
             if (res.messages != null ) {
 
+              if (res.messages.error != null){
+                res.messages.error.forEach(msg => {
+                  this.toastr.error(msg);
+                });
+              }
               if (res.messages.warning != null){
                 res.messages.warning.forEach(msg => {
-                  this.toastr.error(msg);
+                  this.toastr.warning(msg);
                 });
               }
               if(res.messages.info != null){
@@ -80,7 +107,12 @@ export class ApiService {
             
             if (res.message == 'logout'){
               localStorage.clear();
+
               this.router.navigate(['/login']);
+              // This aborts all HTTP requests.
+              this.ngUnsubscribe.next();
+              // This completes the subject properlly.
+              // this.ngUnsubscribe.complete();
             }
 
             throw 'No se ha podido realizar la consulta'; 

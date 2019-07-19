@@ -11,6 +11,7 @@ export class OrganismosComponent  implements OnInit {
 
   public organismos: [];
   public loaded: boolean;
+  private navItems: INavitem[];
 
   constructor (
     private router: Router,
@@ -23,6 +24,17 @@ export class OrganismosComponent  implements OnInit {
   }
 
   ngOnInit(){
+
+    this.navItems = [{
+      href: '/inicio/organismos',
+      icon: 'home',
+      title: 'Inicio'
+    }];
+
+    this.apiService.setNavItems(this.navItems);
+
+    const breadcrumb = [{title:'Inicio', href: 'inicio'}, {title:'Organismos'}]
+    this.apiService.setBreadcrumb(breadcrumb);
 
     this.apiService.api({},"getOrganismos").subscribe(res =>{
       this.loaded = true;

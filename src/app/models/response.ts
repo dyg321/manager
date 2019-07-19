@@ -8,4 +8,5 @@ export interface IMessages {
     warning?: [];
     info?: [];
     success?: [];
+    error?: [];
 }

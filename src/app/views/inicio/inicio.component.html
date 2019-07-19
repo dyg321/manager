@@ -35,7 +35,7 @@
   <div class="sidebar">
     <nav class="sidebar-nav">
       <ul class="nav">
-        <li class="nav-item" *ngFor="let item of navItems">
+        <li class="nav-item" *ngFor="let item of apiService.navItems">
           <a class="nav-link" routerLink="{{item.href}}" routerLinkActive="active" 
           [routerLinkActiveOptions]="{exact: true}">
             <i class="nav-icon icon-{{item.icon}}"></i> {{item.title}}
@@ -48,12 +48,8 @@
     
   </div>
   <main class="main">
-    <!-- Breadcrumb-->
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">Inicio</li>
-    
-      <!-- Breadcrumb Menu-->
-     
+      <li *ngFor="let item of apiService.breadcrumb" class="breadcrumb-item">{{item.title}}</li>
     </ol>
     <div class="container-fluid">
           <router-outlet></router-outlet>

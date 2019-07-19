@@ -9,7 +9,7 @@
   </div>
   <div class="row" *ngIf="organismos.length">
     <div class="icards col-sm-6 col-lg-3" *ngFor="let item of organismos; let i = index">
-      <a routerLink="/inicio/o/{{item.alias}}">
+      <a routerLink="/inicio/adquisiciones/{{item.alias}}">
       <div class="brand-card">
         <div class="brand-card-header bg-facebook">
             <div class="brand-title" height="90">{{item.name}}</div>

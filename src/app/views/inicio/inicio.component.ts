@@ -24,16 +24,13 @@ export class InicioComponent  implements OnInit {
 
   ngOnInit(){
 
-    this.navItems = [{
-      href: '/inicio/organismos',
-      icon: 'home',
-      title: 'Inicio'
-    }];
-
+    
     this.apiService.api({},"getUserData").subscribe(res =>{
-      
       this.loggedUser = JSON.parse(res.data);;
     });
+
+    const breadcrumb = [{title:'Inicio', href: 'inicio'}]
+    this.apiService.setBreadcrumb(breadcrumb);
    
   }
 

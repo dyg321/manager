@@ -1,0 +1,45 @@
+<div class="animated fadeIn" *ngIf="loaded">
+  <div class="row">
+      <div class="col">
+        <div class="page-title">
+        <h1>{{data.organismo.name}}</h1>
+        <h2>Plan Anual de Adquisiciones {{vigencia}}</h2>
+        
+        </div> <!-- page-title -->
+        <div class="card">
+          
+          <div class="card-body">
+
+            <div *ngIf="error">
+              {{error.message}}
+            </div>
+            <table *ngIf="data.adquisiciones.length" class="table table-bordered table-striped table-sm table-responsive">
+              <thead> 
+              <tr>
+                <th>Número Adq.</th>
+                <th>Descripción</th>
+                <th>Valor Total</th>
+              </tr>
+              </thead>
+              <tbody >
+                <tr *ngFor="let item of data.adquisiciones; let i = index">
+                  <td>
+                      {{item.adquisicion_num}}
+                  </td>
+                  <td>
+                      {{item.descripcion}}
+                  </td>
+                  <td>
+                      {{item.valor_total}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      
+    </div><!--/.row-->
+   
+</div>

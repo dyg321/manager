@@ -7,6 +7,7 @@ import { OrganismosComponent } from '../organismos/organismos.component';
 
 // Components Routing
 import { InicioRoutingModule } from './inicio-routing.module';
+import { AdquisicionesComponent } from '../adquisiciones/adquisiciones.component';
 
 
 
@@ -19,7 +20,8 @@ import { InicioRoutingModule } from './inicio-routing.module';
     InicioRoutingModule
   ],
   declarations: [
-    OrganismosComponent
+    OrganismosComponent,
+    AdquisicionesComponent
   ]
 })
 export class InicioModule  { 
